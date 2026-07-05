@@ -28,14 +28,11 @@
   nav {
     position: sticky; top: 0; z-index: 100;
     background: rgba(16,20,24,.97); backdrop-filter: blur(6px);
+    display: flex; justify-content: center; gap: 4px; flex-wrap: wrap;
     padding: 12px 16px; border-bottom: 2px solid var(--gold);
   }
-  .nav-links {
-    display: flex; justify-content: center; gap: 4px; flex-wrap: wrap;
-  }
-  .nav-links a { color: #d6dde4; text-decoration: none; font-size: 14px; font-weight: 600; padding: 6px 14px; border-radius: 20px; transition: all .2s; }
-  .nav-links a:hover { background: var(--ink-2); color: var(--gold); }
-  .nav-toggle { display: none; }
+  nav a { color: #d6dde4; text-decoration: none; font-size: 14px; font-weight: 600; padding: 6px 14px; border-radius: 20px; transition: all .2s; }
+  nav a:hover { background: var(--ink-2); color: var(--gold); }
 
   header {
     background: linear-gradient(155deg, #101418 0%, #1c2530 60%, #2b3a4c 100%);
@@ -155,48 +152,6 @@
   footer { background: var(--ink); color: #93a1af; text-align: center; padding: 30px 24px; font-size: 13.5px; margin-top: 32px; border-top: 3px solid var(--gold); }
   footer a { color: var(--gold); text-decoration: none; }
 
-
-  @media (max-width: 700px) {
-    nav {
-      padding: 8px 16px;
-    }
-    .nav-toggle {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: transparent;
-      border: none;
-      color: var(--gold);
-      font: inherit;
-      font-size: 14px;
-      font-weight: 800;
-      letter-spacing: 1px;
-      cursor: pointer;
-      padding: 6px 2px;
-    }
-    .menu-icon {
-      font-size: 20px;
-      line-height: 1;
-    }
-    .nav-links {
-      display: none;
-      width: 100%;
-      flex-direction: column;
-      gap: 4px;
-      padding: 8px 0 4px;
-    }
-    .nav-links.open {
-      display: flex;
-    }
-    .nav-links a {
-      width: 100%;
-      padding: 9px 12px;
-      border-radius: 6px;
-      font-size: 14px;
-    }
-  }
-
   @media (max-width: 900px) { .pc-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } }
   @media (max-width: 800px) { .info-grid { grid-template-columns: 1fr; } }
   @media (max-width: 700px) { main p:not(.muted), .direction-card li, .cfp-list li, .venue-box p, .update-copy { text-align: left; } }
@@ -206,24 +161,17 @@
 <body>
 
 <nav>
-  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-navigation">
-    <span>MENU</span>
-    <span class="menu-icon" aria-hidden="true">☰</span>
-  </button>
-
-  <div class="nav-links" id="site-navigation">
-    <a href="#about">About</a>
-    <a href="#topics">Topics</a>
-    <a href="#speakers">Speakers</a>
-    <a href="#program">Program</a>
-    <a href="#cfp">Call for Papers</a>
-    <a href="#competition">Challenges</a>
-    <a href="#organizers">Organizers</a>
-    <a href="#program-committee">Program Committee</a>
-    <a href="#sponsors">Sponsors</a>
-    <a href="#contact">Contact</a>
-    <a href="#venue">Venue</a>
-  </div>
+  <a href="#about">About</a>
+  <a href="#topics">Topics</a>
+  <a href="#speakers">Speakers</a>
+  <a href="#program">Program</a>
+  <a href="#cfp">Call for Papers</a>
+  <a href="#competition">Challenges</a>
+  <a href="#organizers">Organizers</a>
+  <a href="#program-committee">Program Committee</a>
+  <a href="#sponsors">Sponsors</a>
+  <a href="#contact">Contact</a>
+  <a href="#venue">Venue</a>
 </nav>
 
 <header>
@@ -464,7 +412,6 @@
       <div class="org-card">
         <div class="org-initials">YT</div>
         <h4>Yingjuan Tang</h4>
-        <div class="org-aff">Zhengzhou University of Light Industry, China</div>
       </div>
       <div class="org-card">
         <div class="org-initials">LZ</div>
@@ -571,27 +518,6 @@
 <footer>
   IROS 2026 Workshop — Physical World Models for Scaling Embodied AI
 </footer>
-
-
-<script>
-  const navToggle = document.querySelector('.nav-toggle');
-  const navLinks = document.querySelector('.nav-links');
-  const menuIcon = document.querySelector('.menu-icon');
-
-  navToggle.addEventListener('click', function () {
-    const isOpen = navLinks.classList.toggle('open');
-    navToggle.setAttribute('aria-expanded', String(isOpen));
-    menuIcon.textContent = isOpen ? '✕' : '☰';
-  });
-
-  document.querySelectorAll('.nav-links a').forEach(function (link) {
-    link.addEventListener('click', function () {
-      navLinks.classList.remove('open');
-      navToggle.setAttribute('aria-expanded', 'false');
-      menuIcon.textContent = '☰';
-    });
-  });
-</script>
 
 </body>
 </html>
