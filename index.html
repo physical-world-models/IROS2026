@@ -156,6 +156,22 @@
   @media (max-width: 800px) { .info-grid { grid-template-columns: 1fr; } }
   @media (max-width: 700px) { main p:not(.muted), .direction-card li, .cfp-list li, .venue-box p, .update-copy { text-align: left; } }
   @media (max-width: 600px) { .hero-actions { align-items: stretch; max-width: 340px; } .hero-button { width: 100%; } .meta-row { gap: 16px; } td.time { width: auto; } .info-card { min-height: auto; padding: 22px; } }
+  @media (max-width: 700px) {
+  nav {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding: 8px 12px;
+  }
+
+  nav a {
+    flex: 0 0 auto;
+    font-size: 13px;
+    padding: 6px 10px;
+  }}
 </style>
 </head>
 <body>
