@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Physical World Models for Scaling Embodied AI @ IROS 2026</title>
+<link rel="icon" href="assets/f.jpg" type="image/jpeg">
+<meta name="description" content="IROS 2026 Half-Day Workshop on Physical World Models for Scaling Embodied AI: From Scalable Physical Experience to Predictive Embodied Action.">
+<meta property="og:title" content="Physical World Models for Scaling Embodied AI @ IROS 2026">
+<meta property="og:description" content="From Scalable Physical Experience to Predictive Embodied Action at IROS 2026.">
+<style>
+  :root {
+    --ink: #101418;        /* Pittsburgh black */
+    --ink-2: #1c2530;
+    --gold: #f2b632;       /* Pittsburgh gold */
+    --gold-dark: #c78d12;
+    --steel: #4a6076;      /* steel blue */
+    --bg: #f6f7f8;
+    --text: #232a31;
+    --muted: #5f6b76;
+    --card: #ffffff;
+    --border: #e2e6ea;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; }
+
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(16,20,24,.97); backdrop-filter: blur(6px);
+    display: flex; justify-content: center; gap: 4px; flex-wrap: wrap;
+    padding: 12px 16px; border-bottom: 2px solid var(--gold);
+  }
+  nav a { color: #d6dde4; text-decoration: none; font-size: 14px; font-weight: 600; padding: 6px 14px; border-radius: 20px; transition: all .2s; }
+  nav a:hover { background: var(--ink-2); color: var(--gold); }
+
+  header {
+    background: linear-gradient(155deg, #101418 0%, #1c2530 60%, #2b3a4c 100%);
+    color: #fff; text-align: center; padding: 80px 24px 68px;
+    position: relative; overflow: hidden;
+  }
+  header::before {
+    content: ""; position: absolute; inset: 0; opacity: .10;
+    background-image: radial-gradient(circle at 15% 25%, var(--gold) 0, transparent 32%),
+                      radial-gradient(circle at 85% 75%, var(--steel) 0, transparent 35%);
+  }
+  /* subtle bridge-truss motif, a nod to Pittsburgh */
+  .truss { position: absolute; bottom: 0; left: 0; width: 100%; height: 60px; opacity: .18; }
+  .conf-badge { display: inline-block; background: var(--gold); color: var(--ink); font-weight: 800; font-size: 14px; letter-spacing: 2px; padding: 6px 20px; border-radius: 4px; margin-bottom: 24px; position: relative; }
+  header h1 { font-size: clamp(28px, 4.5vw, 48px); font-weight: 800; max-width: 920px; margin: 0 auto 16px; position: relative; }
+  header h1 .hl { color: var(--gold); }
+  header .subtitle { font-size: clamp(15px, 2vw, 18px); color: #aebbc8; max-width: 760px; margin: 0 auto 24px; position: relative; }
+  .hero-actions { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; margin: 0 auto 30px; position: relative; }
+  .hero-button { display: inline-flex; align-items: center; justify-content: center; min-height: 42px; padding: 10px 18px; border-radius: 6px; border: 1.5px solid rgba(242,182,50,.72); text-decoration: none; font-size: 14px; font-weight: 800; letter-spacing: .2px; transition: transform .2s, box-shadow .2s, background .2s, border-color .2s, color .2s; }
+  .hero-button.primary { background: var(--gold); color: var(--ink); border-color: var(--gold); box-shadow: 0 10px 24px rgba(242,182,50,.22); }
+  .hero-button.secondary { background: rgba(255,255,255,.06); color: #f7fafc; border-color: rgba(214,221,228,.48); }
+  .hero-button:hover { transform: translateY(-2px); }
+  .hero-button.primary:hover { box-shadow: 0 14px 30px rgba(242,182,50,.30); }
+  .hero-button.secondary:hover { background: rgba(255,255,255,.11); border-color: var(--gold); color: var(--gold); }
+  .hero-button.disabled { color: #b8c2cc; border-color: rgba(184,194,204,.32); background: rgba(255,255,255,.04); cursor: default; }
+  .hero-button.disabled:hover { transform: none; }
+  .meta-row { display: flex; justify-content: center; gap: 28px; flex-wrap: wrap; position: relative; }
+  .meta-item { font-size: 15px; color: #edf1f5; }
+  .meta-item strong { color: var(--gold); display: block; font-size: 12px; letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 2px; }
+
+  main { max-width: 1020px; margin: 0 auto; padding: 0 24px 68px; }
+  section { padding-top: 50px; }
+  h2 { font-size: 26px; color: var(--ink); margin-bottom: 16px; padding-bottom: 8px; border-bottom: 3px solid var(--gold); display: inline-block; }
+  p { margin-bottom: 14px; }
+  main p:not(.muted), .direction-card li, .venue-box p { text-align: justify; text-justify: inter-word; }
+  .muted { color: var(--muted); font-size: 14px; }
+  .direction-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; margin-top: 14px; border-top: 4px solid var(--gold); }
+  .direction-card.d2 { border-top-color: var(--steel); }
+  .direction-card h3 { font-size: 18px; color: var(--ink); margin-bottom: 6px; }
+  .direction-card .tagline { font-size: 14px; color: var(--muted); font-style: italic; margin-bottom: 14px; }
+  .direction-card ul { list-style: none; }
+  .direction-card li { font-size: 14.5px; padding: 6px 0 6px 24px; position: relative; border-bottom: 1px dashed var(--border); }
+  .direction-card li:last-child { border-bottom: none; }
+  .direction-card li::before { content: "▸"; position: absolute; left: 4px; color: var(--gold-dark); font-weight: 700; }
+  .direction-card.d2 li::before { color: var(--steel); }
+  .challenge-heading { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 28px; align-items: end; margin-bottom: 22px; }
+  .challenge-heading h2 { margin-bottom: 8px; }
+  .challenge-lead { max-width: 720px; margin: 0; color: var(--muted); font-size: 14.5px; }
+  .challenge-cta { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 10px 16px; border: 1px solid var(--gold-dark); border-radius: 7px; background: var(--gold); color: var(--ink); text-decoration: none; font-size: 13px; font-weight: 800; white-space: nowrap; box-shadow: 0 8px 18px rgba(199,141,18,.16); transition: transform .2s, box-shadow .2s, background .2s; }
+  .challenge-cta:hover { transform: translateY(-2px); background: #f6c34e; box-shadow: 0 12px 24px rgba(199,141,18,.22); }
+  .challenge-cta-mark { font-size: 18px; line-height: 1; }
+  .challenge-track-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+  .challenge-track { --track-accent: var(--steel); position: relative; min-height: 210px; padding: 20px 18px 18px; overflow: hidden; background: var(--card); border: 1px solid var(--border); border-top: 4px solid var(--track-accent); border-radius: 8px; }
+  .challenge-track.video { --track-accent: var(--gold-dark); }
+  .challenge-track.rl { --track-accent: var(--steel); }
+  .challenge-track.robot { --track-accent: #2f6b5f; }
+  .challenge-track-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 17px; }
+  .challenge-track-number { color: var(--track-accent); font-size: 25px; font-weight: 900; line-height: 1; }
+  .challenge-track-domain { color: var(--muted); font-size: 10.5px; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; }
+  .challenge-track h3 { min-height: 48px; margin-bottom: 8px; color: var(--ink); font-size: 17px; line-height: 1.35; }
+  .challenge-track p { margin: 0; color: var(--muted); font-size: 13.5px; line-height: 1.55; text-align: left; }
+  main .challenge-track p, .challenge-heading .challenge-lead { text-align: left; text-justify: auto; }
+  .challenge-timeline { margin-top: 26px; padding: 22px 0 25px; border-top: 1px solid #cfd7df; border-bottom: 1px solid #cfd7df; }
+  .challenge-subhead { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
+  .challenge-subhead h3 { color: var(--ink); font-size: 18px; margin: 0; }
+  .challenge-timeline-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); position: relative; margin-top: 19px; }
+  .challenge-timeline-grid::before { content: ""; position: absolute; top: 7px; left: 12.5%; right: 12.5%; height: 2px; background: #c4ced7; }
+  .challenge-milestone { --milestone-color: var(--steel); position: relative; padding: 25px 8px 0; text-align: center; }
+  .challenge-milestone.final { --milestone-color: var(--gold-dark); }
+  .challenge-milestone::before { content: ""; position: absolute; top: 0; left: 50%; z-index: 1; width: 14px; height: 14px; border: 3px solid var(--bg); border-radius: 50%; background: var(--milestone-color); box-shadow: 0 0 0 2px var(--milestone-color); transform: translateX(-50%); }
+  .challenge-milestone.final::before { width: 17px; height: 17px; top: -2px; }
+  .challenge-milestone time { display: block; color: var(--milestone-color); font-size: 12px; font-weight: 900; text-transform: uppercase; }
+  .challenge-milestone strong { display: block; margin-top: 4px; color: var(--ink); font-size: 13.5px; line-height: 1.35; }
+  .challenge-awards { margin-top: 24px; }
+  .challenge-awards .muted { margin: 2px 0 0; }
+  .awards-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+  .award-card { --award-accent: var(--gold); padding: 20px 18px 16px; color: #f5f7fa; background: var(--ink-2); border: 1px solid #344252; border-top: 4px solid var(--award-accent); border-radius: 8px; transition: transform .2s, box-shadow .2s; }
+  .award-card:hover { transform: translateY(-3px); box-shadow: 0 10px 26px rgba(16,20,24,.18); }
+  .award-card.rl { --award-accent: #8da2b5; }
+  .award-card.robot { --award-accent: #74a89d; }
+  .award-track-label { display: block; margin-bottom: 8px; color: var(--award-accent); font-size: 10.5px; font-weight: 900; letter-spacing: 1.3px; text-transform: uppercase; }
+  .award-card h4 { min-height: 50px; color: #fff; font-size: 17px; line-height: 1.35; }
+  .award-prize-list { list-style: none; margin-top: 15px; border-top: 1px solid rgba(214,221,228,.22); }
+  .award-prize { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: center; min-height: 78px; padding: 14px 0; border-bottom: 1px solid rgba(214,221,228,.14); }
+  .award-prize:last-child { border-bottom: none; }
+  .award-rank-line { display: flex; align-items: center; gap: 9px; }
+  .award-rank { width: 23px; height: 23px; flex: 0 0 23px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; background: #708497; color: #fff; font-size: 11px; font-weight: 900; }
+  .award-prize.first .award-rank { background: var(--gold); color: var(--ink); }
+  .award-prize.third .award-rank { background: #66717d; }
+  .award-prize strong { color: #f5f7fa; font-size: 12.5px; letter-spacing: .3px; text-transform: uppercase; }
+  .award-benefit { display: block; margin: 5px 0 0 32px; color: #9eacb9; font-size: 11.5px; line-height: 1.4; }
+  .award-amount { color: #dbe3ea; font-size: 22px; font-weight: 900; letter-spacing: 0; white-space: nowrap; }
+  .award-prize.first .award-amount { color: var(--gold); font-size: 26px; }
+  .award-prize.third .award-amount { color: #b8c2cc; }
+
+  .speaker-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; margin-top: 8px; }
+  .speaker-card:nth-last-child(2):nth-child(4n + 1) { grid-column: 2; }
+  .speaker-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px 16px 20px; text-align: center; transition: transform .2s, box-shadow .2s; }
+  .speaker-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(16,20,24,.12); }
+  .speaker-card img { width: 96px; height: 96px; border-radius: 50%; object-fit: cover; margin-bottom: 14px; border: 3px solid var(--gold); }
+  .speaker-card h3 { font-size: 16px; color: var(--ink); margin-bottom: 4px; }
+  .speaker-card .aff { font-size: 13px; color: var(--muted); }
+  .speaker-card .talk { font-size: 12.5px; color: var(--gold-dark); margin-top: 8px; font-style: italic; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(16,20,24,.06); margin-top: 10px; }
+  th { background: var(--ink); color: var(--gold); text-align: left; padding: 12px 16px; font-size: 13px; letter-spacing: .5px; text-transform: uppercase; }
+  td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 14.5px; }
+  tr:last-child td { border-bottom: none; }
+  td.time { white-space: nowrap; font-weight: 600; color: var(--ink-2); width: 140px; }
+  tr.break-row td { background: #fbf3df; color: var(--muted); font-style: italic; }
+
+  #cfp .cfp-intro { max-width: 820px; margin-bottom: 16px; text-align: left; text-justify: auto; }
+  .cfp-policy { display: grid; grid-template-columns: 175px minmax(0, 1fr); gap: 18px; align-items: center; padding: 15px 18px; color: #f5f7fa; background: var(--ink-2); border: 1px solid #344252; border-top: 4px solid var(--gold); border-radius: 8px; }
+  .cfp-policy strong { color: var(--gold); font-size: 11.5px; font-weight: 900; letter-spacing: .9px; text-transform: uppercase; }
+  .cfp-policy p { margin: 0; color: #d6dde4; font-size: 13.5px; line-height: 1.55; text-align: left; text-justify: auto; }
+  .cfp-guidelines { margin-top: 20px; }
+  .cfp-guidelines > h3 { color: var(--ink); font-size: 18px; margin: 0; }
+  .cfp-guideline-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 12px; }
+  .cfp-guideline-card { --guideline-accent: var(--gold-dark); min-height: 190px; padding: 18px 16px 16px; background: var(--card); border: 1px solid var(--border); border-top: 4px solid var(--guideline-accent); border-radius: 8px; }
+  .cfp-guideline-card.format { --guideline-accent: var(--steel); }
+  .cfp-guideline-card.contributions { --guideline-accent: #2f6b5f; }
+  .cfp-guideline-card.presentation { --guideline-accent: var(--gold); }
+  .cfp-guideline-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 15px; }
+  .cfp-guideline-number { color: var(--guideline-accent); font-size: 24px; font-weight: 900; line-height: 1; }
+  .cfp-guideline-domain { color: var(--muted); font-size: 9.5px; font-weight: 800; letter-spacing: .9px; text-transform: uppercase; }
+  .cfp-guideline-card h4 { min-height: 43px; margin-bottom: 7px; color: var(--ink); font-size: 16px; line-height: 1.35; }
+  .cfp-guideline-card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.5; text-align: left; text-justify: auto; }
+  .cfp-timeline { margin-top: 26px; }
+  .cfp-timeline-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cfp-timeline-grid::before { left: 12.5%; right: 12.5%; }
+  .poster-award { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: center; margin-top: 18px; padding: 18px 20px; color: #f5f7fa; background: var(--ink-2); border: 1px solid #344252; border-top: 4px solid var(--gold); border-radius: 8px; }
+  .poster-award-label { display: block; margin-bottom: 5px; color: var(--gold); font-size: 10.5px; font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase; }
+  .poster-award h3 { color: #fff; font-size: 19px; line-height: 1.3; }
+  .poster-award p { margin: 4px 0 0; color: #b8c2cc; font-size: 13px; line-height: 1.45; }
+  .poster-award-amount { min-width: 120px; text-align: right; }
+  .poster-award-amount strong { display: block; color: var(--gold); font-size: 30px; font-weight: 900; line-height: 1; }
+  .poster-award-amount span { display: block; margin-top: 5px; color: #b8c2cc; font-size: 10px; font-weight: 900; letter-spacing: 1.2px; text-transform: uppercase; }
+  .cfp-footer { margin-top: 12px; }
+  .cfp-footer p { margin: 0; color: var(--muted); font-size: 13.5px; text-align: left; text-justify: auto; }
+  .cfp-footer a { color: var(--gold-dark); font-weight: 800; text-decoration: none; }
+  .cfp-footer a:hover { text-decoration: underline; }
+  .cfp-footer p + p { margin-top: 3px; }
+  #cfp .cfp-policy p, #cfp .cfp-guideline-card p, #cfp .poster-award p, #cfp .cfp-footer p { text-align: left; text-justify: auto; }
+
+  .org-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 8px; }
+  .org-grid > .org-card:last-child { grid-column: 1 / -1; justify-self: center; width: calc((100% - 42px) / 4); }
+  .org-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px 14px 16px; text-align: center; transition: transform .2s, box-shadow .2s; }
+  .org-card:hover { transform: translateY(-3px); box-shadow: 0 6px 18px rgba(16,20,24,.10); }
+  .org-avatar { width: 72px; height: 72px; border-radius: 50%; object-fit: cover; margin: 0 auto 12px; display: block; border: 2.5px solid var(--gold); }
+  .org-initials { width: 72px; height: 72px; border-radius: 50%; margin: 0 auto 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 700; color: #fff; background: linear-gradient(135deg, var(--steel), var(--ink-2)); border: 2.5px solid var(--gold); }
+  .org-card h4 { font-size: 15px; color: var(--ink); margin-bottom: 3px; }
+  .org-card .org-aff { font-size: 12.5px; color: var(--muted); margin-bottom: 6px; }
+  .org-card .org-area { font-size: 11.5px; color: var(--gold-dark); line-height: 1.45; }
+
+  .committee-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin-top: 8px; border-left: 4px solid var(--steel); }
+  .committee-box strong { color: var(--ink); }
+  .pc-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
+  .pc-grid .org-card { grid-column: span 2; padding: 16px 10px 14px; }
+  .pc-grid .org-card:nth-child(6) { grid-column: 3 / span 2; }
+  .pc-grid .org-initials { width: 64px; height: 64px; font-size: 20px; margin-bottom: 10px; }
+  .pc-grid .org-card h4 { font-size: 14px; }
+  .pc-grid .org-aff { font-size: 11.5px; line-height: 1.35; margin: 4px 0 0; }
+
+  .sponsor-section { text-align: left; }
+  .sponsor-section h2 { display: inline-block; }
+  .sponsor-lead { max-width: 560px; margin: 0 0 16px; color: var(--muted); font-size: 14px; text-align: left; }
+  .sponsor-card { margin-top: 18px; }
+  .sponsor-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .sponsor-logo-tile { display: flex; align-items: center; justify-content: center; min-height: 100px; padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; }
+  .sponsor-logo { display: block; width: 100%; max-width: 180px; height: 58px; object-fit: contain; }
+
+  .contact-layout { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 42px; align-items: start; }
+  .contact-layout .contact-copy { max-width: 410px; margin: 0; text-align: left; text-justify: auto; }
+  .contact-details { min-width: 0; padding-left: 42px; border-left: 1px solid #cfd7df; }
+  .contact-emails { display: flex; flex-wrap: wrap; gap: 6px 24px; }
+  .contact-email { color: var(--gold-dark); font-weight: 800; text-decoration: none; }
+  .contact-email:hover { text-decoration: underline; }
+  .share-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .share-button { display: inline-flex; align-items: center; gap: 8px; min-height: 38px; padding: 8px 14px; border: 1px solid var(--border); border-radius: 7px; background: #fff; color: var(--ink-2); text-decoration: none; font-size: 13px; font-weight: 700; }
+  .share-button:hover { border-color: var(--gold); color: var(--ink); }
+  .share-icon { width: 22px; height: 22px; border-radius: 6px; display: inline-flex; align-items: center; justify-content: center; color: #fff; background: var(--ink); font-size: 12px; font-weight: 900; line-height: 1; }
+  .share-icon.linkedin { background: #0a66c2; }
+  .share-icon.email { background: var(--steel); }
+
+  .venue-box { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 22px 24px; margin-top: 8px; }
+
+  footer { background: var(--ink); color: #93a1af; text-align: center; padding: 30px 24px; font-size: 13.5px; margin-top: 32px; border-top: 3px solid var(--gold); }
+  footer a { color: var(--gold); text-decoration: none; }
+
+  @media (max-width: 900px) { .org-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .org-grid > .org-card:last-child { width: calc((100% - 28px) / 3); } .pc-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } .pc-grid .org-card, .pc-grid .org-card:nth-child(6) { grid-column: auto; } }
+  @media (max-width: 900px) { .cfp-guideline-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cfp-guideline-card { min-height: 0; } }
+  @media (max-width: 800px) { .awards-grid { grid-template-columns: 1fr; } .award-card h4 { min-height: 0; } }
+  @media (max-width: 800px) { .speaker-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .speaker-card:nth-last-child(2):nth-child(4n + 1) { grid-column: auto; } .contact-layout { grid-template-columns: 1fr; gap: 20px; } .contact-details { padding: 20px 0 0; border-top: 1px solid #cfd7df; border-left: none; } .challenge-heading { grid-template-columns: 1fr; align-items: start; gap: 14px; } .challenge-cta { justify-self: start; } .challenge-track-grid { grid-template-columns: 1fr; } .challenge-track { min-height: 0; } .challenge-track h3 { min-height: 0; } .sponsor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 460px) { .speaker-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 700px) { .org-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .org-grid > .org-card:last-child { width: calc((100% - 14px) / 2); } main p:not(.muted), .direction-card li, .venue-box p { text-align: left; } }
+  @media (max-width: 520px) { .contact-emails { display: grid; gap: 4px; } }
+  @media (max-width: 460px) { .org-grid { grid-template-columns: 1fr; } .org-grid > .org-card:last-child { width: 100%; } }
+  @media (max-width: 600px) { .hero-actions { align-items: stretch; max-width: 340px; } .hero-button { width: 100%; } .meta-row { gap: 16px; } td.time { width: auto; } }
+  @media (max-width: 600px) { .cfp-policy { grid-template-columns: 1fr; gap: 4px; } .cfp-guideline-grid { grid-template-columns: 1fr; } .cfp-guideline-card h4 { min-height: 0; } .poster-award { grid-template-columns: 1fr; gap: 8px; } .poster-award-amount { min-width: 0; text-align: left; } }
+  @media (max-width: 600px) { .award-card { padding: 18px 16px 14px; } .award-prize.first .award-amount { font-size: 24px; } }
+  @media (max-width: 600px) { .challenge-cta { width: 100%; } .challenge-subhead { display: block; } .challenge-timeline-grid { grid-template-columns: 1fr; gap: 16px; padding-left: 22px; } .challenge-timeline-grid::before { top: 9px; right: auto; bottom: 9px; left: 6px; width: 2px; height: auto; } .challenge-milestone { padding: 0 0 0 14px; text-align: left; } .challenge-milestone::before { top: 4px; left: -22px; transform: none; } .challenge-milestone.final::before { top: 2px; left: -24px; } }
+  @media (max-width: 700px) {
+    nav {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      overflow-x: auto;
+      overflow-y: hidden;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      padding: 8px 12px;
+    }
+  
+    nav a {
+      flex: 0 0 auto;
+      font-size: 13px;
+      padding: 6px 10px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#topics">Topics</a>
+  <a href="#speakers">Speakers</a>
+  <a href="#program">Program</a>
+  <a href="#cfp">Call for Papers</a>
+  <a href="#competition">WorldArena Challenge 2.0</a>
+  <a href="#organizers">Organizers</a>
+  <a href="#program-committee">Program Committee</a>
+  <a href="#sponsors">Sponsors</a>
+  <a href="#contact">Contact</a>
+  <a href="#venue">Venue</a>
+</nav>
+
+<header>
+  <span class="conf-badge">IROS 2026 WORKSHOP · PITTSBURGH</span>
+  <h1>Physical World Models for <span class="hl">Scaling Embodied AI</span></h1>
+  <p class="subtitle">From Scalable Physical Experience to Predictive Embodied Action.</p>
+  <div class="hero-actions" aria-label="Primary workshop actions">
+    <a class="hero-button primary" href="#cfp">Call for Papers</a>
+    <a class="hero-button secondary" href="http://iros2026challenge.world-arena.ai/" target="_blank" rel="noopener noreferrer">WorldArena Challenge 2.0</a>
+    <a class="hero-button secondary" href="https://openreview.net/group?id=IEEE.org/IROS/2026/Workshop/PWMS" target="_blank" rel="noopener noreferrer">Submit a Paper</a>
+  </div>
+  <div class="meta-row">
+    <div class="meta-item"><strong>Date</strong>Thursday, October 1, 2026</div>
+    <div class="meta-item"><strong>Time</strong>1:00 PM – 5:30 PM (Half Day)</div>
+
+    <div class="meta-item"><strong>Location</strong>David L. Lawrence Convention Center, Pittsburgh, PA, USA</div>
+  </div>
+  <svg class="truss" viewBox="0 0 1200 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0 60 L60 10 L120 60 L180 10 L240 60 L300 10 L360 60 L420 10 L480 60 L540 10 L600 60 L660 10 L720 60 L780 10 L840 60 L900 10 L960 60 L1020 10 L1080 60 L1140 10 L1200 60" stroke="#f2b632" stroke-width="3" fill="none"/>
+    <line x1="0" y1="10" x2="1200" y2="10" stroke="#f2b632" stroke-width="3"/>
+  </svg>
+</header>
+
+<main>
+
+<section id="about">
+  <h2>About the Workshop</h2>
+  <p>Embodied AI is entering a scaling moment, but scaling embodied systems requires more than larger policies or more robot demonstrations. It requires diverse, interaction-rich, and physically grounded experience that can be generated, structured, evaluated, and reused across tasks, embodiments, and environments. This workshop explores <strong>Physical World Models</strong> as a new scaling infrastructure for embodied AI, turning human and robot experience into scalable simulation, synthetic data, predictive rollouts, and action-relevant representations.</p>
+  <p>We organize the workshop around two tightly connected directions. <strong>Physical World Models as Data Engines</strong> asks how human videos, robot demonstrations, cross-embodiment data, Real2Sim2Real pipelines, 3D/4D world generation, visuo-tactile sensing, and data-quality benchmarks can create reliable experience for robot learning. <strong>World Action Models for Embodied Decision-Making</strong> asks how video prediction, geometry grounding, latent dynamics, touch, long-horizon reasoning, policy evaluation, and self-improving agents can bridge predicted futures and executable actions in real-world embodied systems.</p>
+</section>
+
+<section id="topics">
+  <h2>Topics of Interest</h2>
+  <p class="muted">Topics include, but are not limited to:</p>
+
+  <div class="direction-card">
+    <h3>Direction I — Physical World Models as Data Engines</h3>
+    <div class="tagline">From human and robot experience to scalable simulation, synthetic data, and evaluation.</div>
+    <ul>
+      <li><strong>Learning from human videos, demonstrations, and human-object interaction:</strong> extracting task goals, object affordances, action segments, contact events, and interaction priors from in-the-wild and egocentric human demonstrations for physical world model training and robot policy learning.</li>
+      <li><strong>Cross-embodiment robot data scaling and transfer:</strong> building multi-robot data mixtures, shared state/action representations, embodiment-aware metadata, and action retargeting methods to transfer experience across arms, grippers, mobile manipulators, humanoids, and other robot platforms.</li>
+      <li><strong>Real2Sim2Real and digital twins:</strong> reconstructing editable simulation environments from real-world observations, generating controllable rollouts, and using real-world feedback to refine simulation and world models.</li>
+      <li><strong>3D/4D world modeling and generation:</strong> modeling scene geometry, object states, dynamic changes, affordances, occlusions, contact regions, and uncertainty for physically grounded data generation.</li>
+      <li><strong>Synthetic data generation for policy learning and evaluation:</strong> generating controllable demonstrations, simulated rollouts, scene and object-state variations, initial states, rare events, failure cases, and evaluation episodes to train, stress-test, and compare robot policies.</li>
+      <li><strong>Visuo-tactile data generation for contact-rich manipulation:</strong> generating and annotating synchronized vision, tactile, force/torque, proprioceptive, and action signals for learning physical interactions.</li>
+      <li><strong>Benchmarks and evaluation protocols for world-model-generated data:</strong> measuring how synthetic data, simulated rollouts, and real-synthetic data mixtures affect downstream robot policy performance across tasks, embodiments, and sensing modalities.</li>
+    </ul>
+  </div>
+
+  <div class="direction-card d2">
+    <h3>Direction II — World Action Models for Embodied Decision-Making</h3>
+    <div class="tagline">From world prediction to action generation, policy evaluation, and autonomous learning.</div>
+    <ul>
+      <li><strong>Video-based World Action Models:</strong> using video world models and video-action prediction to imagine future observations, task progress, and executable robot actions for manipulation, navigation, and whole-body control.</li>
+      <li><strong>Geometry-aware World Action Models:</strong> grounding action generation in 3D/4D scene structure, object states, spatial relations, point flows, contact geometry, and multi-view consistency for physically reliable embodied action.</li>
+      <li><strong>Latent World Action Models for efficient planning:</strong> learning compact latent dynamics, latent actions, visual subgoals, and action-conditioned representations for low-latency prediction, planning, and robot control.</li>
+      <li><strong>Vision-tactile World Action Models for contact-rich manipulation:</strong> coupling visual, tactile, force/torque, proprioceptive, and action representations to predict contact transitions, slip, deformation, force evolution, and corrective actions for fine manipulation.</li>
+      <li><strong>Long-horizon World Action Models for task-level reasoning:</strong> integrating future prediction with subgoal discovery, temporal abstraction, value estimation, risk awareness, and memory for multi-step manipulation, mobile manipulation, and embodied planning.</li>
+      <li><strong>Predictive policy evaluation and safety-aware action selection:</strong> using world-model rollouts to estimate success, risks, constraint violations, and failure modes before selecting reliable actions for real-world execution.</li>
+      <li><strong>Agentic and self-improving World Action Models:</strong> enabling embodied agents to learn from imagined rollouts, deployment feedback, interventions, failures, and recovery trajectories for autonomous data collection, policy improvement, and continual adaptation.</li>
+    </ul>
+  </div>
+</section>
+
+<section id="speakers">
+  <h2>Invited Speakers</h2>
+  <div class="speaker-grid">
+    <div class="speaker-card">
+      <img src="assets/jiajun_wu.jpg" alt="Jiajun Wu">
+      <h3>Jiajun Wu</h3>
+      <div class="aff">Stanford University, USA</div>
+    </div>
+    <div class="speaker-card">
+      <img src="assets/abhinav_valada.jpg" alt="Abhinav Valada">
+      <h3>Abhinav Valada</h3>
+      <div class="aff">University of Freiburg, Germany</div>
+    </div>
+    <div class="speaker-card">
+      <img src="assets/rudra_poudel.jpg" alt="Rudra P.K. Poudel">
+      <h3>Rudra P.K. Poudel</h3>
+      <div class="aff">Toshiba Europe, UK</div>
+    </div>
+    <div class="speaker-card">
+      <img src="assets/hongyang_li.jpg" alt="Hongyang Li">
+      <h3>Hongyang Li</h3>
+      <div class="aff">University of Hong Kong, China</div>
+    </div>
+    <div class="speaker-card">
+      <img src="assets/ding_zhao.jpg" alt="Ding Zhao">
+      <h3>Ding Zhao</h3>
+      <div class="aff">Carnegie Mellon University, USA</div>
+    </div>
+    <div class="speaker-card">
+      <img src="assets/add.jpg" alt="Katerina Fragkiadaki">
+      <h3>Katerina Fragkiadaki</h3>
+      <div class="aff">Carnegie Mellon University, USA</div>
+    </div>
+  </div>
+</section>
+
+<section id="program">
+  <h2>Program</h2>
+  <table>
+    <tr><th>Time</th><th>Session</th></tr>
+    <tr><td class="time">13:00 – 13:10</td><td>Opening Remarks — Haibao Yu</td></tr>
+    <tr><td class="time">13:10 – 13:40</td><td>Keynote 1 — Jiajun Wu (Stanford University, USA)</td></tr>
+    <tr><td class="time">13:40 – 14:10</td><td>Keynote 2 — Hongyang Li (University of Hong Kong, China)</td></tr>
+    <tr><td class="time">14:10 – 14:40</td><td>Keynote 3 — Rudra P.K. Poudel (Toshiba Europe, UK)</td></tr>
+    <tr class="break-row"><td class="time">14:40 – 15:00</td><td>Coffee Break and Poster Viewing</td></tr>
+    <tr><td class="time">15:00 – 15:30</td><td>Keynote 4 — Abhinav Valada (University of Freiburg, Germany)</td></tr>
+    <tr><td class="time">15:30 – 16:00</td><td>Keynote 5 — Ding Zhao (Carnegie Mellon University, USA)</td></tr>
+    <tr><td class="time">16:00 – 16:30</td><td>Keynote 6 — Katerina Fragkiadaki (Carnegie Mellon University, USA)</td></tr>
+    <tr><td class="time">16:30 – 16:40</td><td>Best Poster Award Ceremony &amp; Winning Paper Presentation</td></tr>
+    <tr><td class="time">16:40 – 17:30</td><td>Challenge Session — WorldArena Challenge 2.0 track results and winning-team presentations</td></tr>
+    <tr><td class="time">17:30 – 17:40</td><td>Closing Remarks</td></tr>
+  </table>
+</section>
+
+<section id="cfp">
+  <h2>Call for Papers</h2>
+  <p class="cfp-intro">We invite original, unpublished work on Physical World Models and World Action Models for scaling Physical AI.</p>
+  <div class="cfp-policy">
+    <strong>Non-archival workshop</strong>
+    <p>Accepted papers will not appear in the IROS proceedings, and submission does not preclude future publication at other venues.</p>
+  </div>
+
+  <div class="cfp-guidelines">
+    <h3>Submission Guidelines</h3>
+    <div class="cfp-guideline-grid">
+      <article class="cfp-guideline-card scope">
+        <div class="cfp-guideline-head"><span class="cfp-guideline-number">01</span><span class="cfp-guideline-domain">Research Fit</span></div>
+        <h4>Scope</h4>
+        <p>Physical World Models as scalable data engines and World Action Models for embodied decision-making.</p>
+      </article>
+      <article class="cfp-guideline-card format">
+        <div class="cfp-guideline-head"><span class="cfp-guideline-number">02</span><span class="cfp-guideline-domain">Submission</span></div>
+        <h4>Format &amp; Review</h4>
+        <p>4–8 pages, excluding references, using the IROS workshop template; double-blind review.</p>
+      </article>
+      <article class="cfp-guideline-card contributions">
+        <div class="cfp-guideline-head"><span class="cfp-guideline-number">03</span><span class="cfp-guideline-domain">Contributions</span></div>
+        <h4>Contribution Types</h4>
+        <p>Technical and position papers, datasets, benchmarks, challenge reports, and negative results; reproducible artifacts are encouraged.</p>
+      </article>
+      <article class="cfp-guideline-card presentation">
+        <div class="cfp-guideline-head"><span class="cfp-guideline-number">04</span><span class="cfp-guideline-domain">Workshop</span></div>
+        <h4>Presentation</h4>
+        <p>All accepted papers must be presented as posters, with selected papers invited for oral spotlight presentations.</p>
+      </article>
+    </div>
+  </div>
+
+  <div class="challenge-timeline cfp-timeline">
+    <div class="challenge-subhead"><h3>Paper &amp; Poster Timeline</h3></div>
+    <div class="challenge-timeline-grid cfp-timeline-grid" aria-label="Call for Papers important dates">
+      <div class="challenge-milestone"><time datetime="2026-08-10">August 10, 2026</time><strong>Submission Deadline</strong></div>
+      <div class="challenge-milestone"><time datetime="2026-08-20">August 20, 2026</time><strong>Acceptance Notification</strong></div>
+      <div class="challenge-milestone"><time datetime="2026-09-20">September 20, 2026</time><strong>Camera-ready</strong></div>
+      <div class="challenge-milestone final"><time datetime="2026-10-01">October 1, 2026</time><strong>Poster Session at IROS 2026</strong></div>
+    </div>
+  </div>
+
+  <div class="poster-award">
+    <div>
+      <span class="poster-award-label">Poster Session Award</span>
+      <h3>Best Poster Award</h3>
+      <p>Presented during the Poster Session at IROS 2026.</p>
+    </div>
+    <div class="poster-award-amount"><strong>$500</strong><span>Prize</span></div>
+  </div>
+
+  <div class="cfp-footer">
+    <p>Submissions will be reviewed for relevance, originality, technical quality, clarity, and potential impact.</p>
+    <p>Dates are tentative and may be adjusted. Submissions will be handled via <a href="https://openreview.net/group?id=IEEE.org/IROS/2026/Workshop/PWMS" target="_blank" rel="noopener noreferrer">OpenReview</a>.</p>
+  </div>
+</section>
+
+<section id="competition">
+  <div class="challenge-heading">
+    <div>
+      <h2>WorldArena Challenge 2.0</h2>
+      <p class="challenge-lead">Benchmarking embodied world models from perceptual quality to interactive learning and real-world manipulation. Winning teams will present their solutions during the Challenge Session.</p>
+    </div>
+    <a class="challenge-cta" href="http://iros2026challenge.world-arena.ai/" target="_blank" rel="noopener noreferrer">
+      <span>Visit Official Challenge Website</span><span class="challenge-cta-mark" aria-hidden="true">&#8599;</span>
+    </a>
+  </div>
+
+  <div class="challenge-track-grid" aria-label="WorldArena Challenge 2.0 competition tracks">
+    <article class="challenge-track video">
+      <div class="challenge-track-head"><span class="challenge-track-number">01</span><span class="challenge-track-domain">Perception</span></div>
+      <h3>Video Quality Evaluation</h3>
+      <p>Visual and motion quality, content consistency, physics adherence, 3D accuracy, and controllability.</p>
+    </article>
+    <article class="challenge-track rl">
+      <div class="challenge-track-head"><span class="challenge-track-number">02</span><span class="challenge-track-domain">Interactive Learning</span></div>
+      <h3>World Model as RL Environment</h3>
+      <p>Whether world models can serve as interactive environments for reinforcement learning and policy optimization.</p>
+    </article>
+    <article class="challenge-track robot">
+      <div class="challenge-track-head"><span class="challenge-track-number">03</span><span class="challenge-track-domain">Physical Action</span></div>
+      <h3>Real-World WAM Manipulation</h3>
+      <p>Real-world manipulation performance in tactile WAM and vision-only WAM settings.</p>
+    </article>
+  </div>
+
+  <div class="challenge-timeline">
+    <div class="challenge-subhead"><h3>Challenge Timeline</h3></div>
+    <div class="challenge-timeline-grid" aria-label="WorldArena Challenge 2.0 important dates">
+      <div class="challenge-milestone"><time datetime="2026-07-10">July 10, 2026</time><strong>Competition Opens</strong></div>
+      <div class="challenge-milestone"><time datetime="2026-08-30">August 30, 2026</time><strong>Final Submission Deadline</strong></div>
+      <div class="challenge-milestone"><time datetime="2026-09-15">September 15, 2026</time><strong>Final Results Released</strong></div>
+      <div class="challenge-milestone final"><time datetime="2026-10-01">October 1, 2026</time><strong>Challenge Session at IROS 2026</strong></div>
+    </div>
+  </div>
+
+  <div class="challenge-awards">
+    <div class="challenge-subhead">
+      <div><h3 id="challenge-awards-title">Awards</h3><p class="muted">Awards are presented separately for each competition track.</p></div>
+    </div>
+    <div class="awards-grid" aria-labelledby="challenge-awards-title">
+      <article class="award-card video">
+        <span class="award-track-label">Track 01</span>
+        <h4>Video Quality Evaluation</h4>
+        <ol class="award-prize-list">
+          <li class="award-prize first">
+            <div><div class="award-rank-line"><span class="award-rank">1</span><strong>1st Prize</strong></div><span class="award-benefit">Certificate + IROS Workshop Presentation</span></div>
+            <span class="award-amount">$700</span>
+          </li>
+          <li class="award-prize second">
+            <div><div class="award-rank-line"><span class="award-rank">2</span><strong>2nd Prize</strong></div><span class="award-benefit">Certificate</span></div>
+            <span class="award-amount">$400</span>
+          </li>
+          <li class="award-prize third">
+            <div><div class="award-rank-line"><span class="award-rank">3</span><strong>3rd Prize</strong></div><span class="award-benefit">Certificate</span></div>
+            <span class="award-amount">$300</span>
+          </li>
+        </ol>
+      </article>
+      <article class="award-card rl">
+        <span class="award-track-label">Track 02</span>
+        <h4>World Model as RL Environment</h4>
+        <ol class="award-prize-list">
+          <li class="award-prize first">
+            <div><div class="award-rank-line"><span class="award-rank">1</span><strong>1st Prize</strong></div><span class="award-benefit">Certificate + IROS Workshop Presentation</span></div>
+            <span class="award-amount">$1,400</span>
+          </li>
+          <li class="award-prize second">
+            <div><div class="award-rank-line"><span class="award-rank">2</span><strong>2nd Prize</strong></div><span class="award-benefit">Certificate</span></div>
+            <span class="award-amount">$800</span>
+          </li>
+          <li class="award-prize third">
+            <div><div class="award-rank-line"><span class="award-rank">3</span><strong>3rd Prize</strong></div><span class="award-benefit">Certificate</span></div>
+            <span class="award-amount">$600</span>
+          </li>
+        </ol>
+      </article>
+      <article class="award-card robot">
+        <span class="award-track-label">Track 03</span>
+        <h4>Real-World WAM Manipulation</h4>
+        <ol class="award-prize-list">
+          <li class="award-prize first">
+            <div><div class="award-rank-line"><span class="award-rank">1</span><strong>1st Prize</strong></div><span class="award-benefit">Certificate + IROS Workshop Presentation</span></div>
+            <span class="award-amount">$1,400</span>
+          </li>
+          <li class="award-prize second">
+            <div><div class="award-rank-line"><span class="award-rank">2</span><strong>2nd Prize</strong></div><span class="award-benefit">Certificate</span></div>
+            <span class="award-amount">$800</span>
+          </li>
+          <li class="award-prize third">
+            <div><div class="award-rank-line"><span class="award-rank">3</span><strong>3rd Prize</strong></div><span class="award-benefit">Certificate</span></div>
+            <span class="award-amount">$600</span>
+          </li>
+        </ol>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section id="organizers">
+  <h2>Organizers</h2>
+  <!-- Organizer list per the IROS 2026 workshop proposal author list.
+       Avatars: drop photos into website/assets/organizers/ with the filenames below
+       (copy from the ECCV2026 repo src/assets/organizer/). Missing images fall back to initials. -->
+  <p class="muted">Our team spans the USA, UK, Singapore, China, and UAE, combining expertise in vision, robotics, and safety validation.</p>
+  <div class="org-grid">
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/haibao_yu.jpg" alt="Haibao Yu" onerror="this.outerHTML='<div class=org-initials>HY</div>'">
+      <h4>Haibao Yu</h4>
+      <div class="org-aff">Carnegie Mellon University, USA</div>
+      <div class="org-area">Spatial Intelligence, Generative Simulation, Embodied AI</div>
+    </div>
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/dandan_zhang.jpg" alt="Dandan Zhang" onerror="this.outerHTML='<div class=org-initials>DZ</div>'">
+      <h4>Dandan Zhang</h4>
+      <div class="org-aff">Imperial College London, UK</div>
+      <div class="org-area">Embodied Intelligence, Human-Robot Interaction, Medical Robotics</div>
+    </div>
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/lei_yang.jpg" alt="Lei Yang" onerror="this.outerHTML='<div class=org-initials>LY</div>'">
+      <h4>Lei Yang</h4>
+      <div class="org-aff">Nanyang Technological University, Singapore</div>
+      <div class="org-area">Spatial Intelligence, World Models</div>
+    </div>
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/weitao_zhou.jpg" alt="Weitao Zhou" onerror="this.outerHTML='<div class=org-initials>WZ</div>'">
+      <h4>Weitao Zhou</h4>
+      <div class="org-aff">Tsinghua University, China</div>
+      <div class="org-area">Autonomous Driving, RL, Safety-Critical Planning</div>
+    </div>
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/jianing_qiu.jpg" alt="Jianing Qiu" onerror="this.outerHTML='<div class=org-initials>JQ</div>'">
+      <h4>Jianing Qiu</h4>
+      <div class="org-aff">Mohamed bin Zayed University of AI, UAE</div>
+      <div class="org-area">Foundation Models, Agents, Human-AI Interaction</div>
+    </div>
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/jiankai_sun.jpg" alt="Jiankai Sun" onerror="this.outerHTML='<div class=org-initials>JS</div>'">
+      <h4>Jiankai Sun</h4>
+      <div class="org-aff">Stanford University, USA</div>
+      <div class="org-area">Embodied AI, Multimodal LLMs, World Models</div>
+    </div>
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/tianxing_chen.jpg" alt="Tianxing Chen" onerror="this.outerHTML='<div class=org-initials>TC</div>'">
+      <h4>Tianxing Chen</h4>
+      <div class="org-aff">The University of Hong Kong, China</div>
+      <div class="org-area">Embodied AI, Robot Foundation Models, Manipulation</div>
+    </div>
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/lan_wei.jpg" alt="Lan Wei" onerror="this.outerHTML='<div class=org-initials>LW</div>'">
+      <h4>Lan Wei</h4>
+      <div class="org-aff">Imperial College London, UK</div>
+      <div class="org-area">Diffusion-based Image Generation, VLA Models</div>
+    </div>
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/wen_fan.jpg" alt="Wen Fan" onerror="this.outerHTML='<div class=org-initials>WF</div>'">
+      <h4>Wen Fan</h4>
+      <div class="org-aff">Imperial College London, UK</div>
+      <div class="org-area">Vision-based Tactile Sensing, Multimodal Robotic Manipulation</div>
+    </div>
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/walter_zimmer.jpg" alt="Walter Zimmer" onerror="this.outerHTML='<div class=org-initials>WZ</div>'">
+      <h4>Walter Zimmer</h4>
+      <div class="org-aff">University of California, Los Angeles (UCLA), USA</div>
+      <div class="org-area">Autonomous Driving, Intelligent Transportation Systems, Foundation Models</div>
+    </div>
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/Chen_Gao.jpg" alt="Chen Gao" onerror="this.outerHTML='<div class=org-initials>PL</div>'">
+      <h4>Chen Gao</h4>
+      <div class="org-aff">Tsinghua University, China</div>
+      <div class="org-area">World model, Embodied intelligence, LLM/VLM agents</div>
+    </div>
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/Yong_Li.jpg" alt="Yong Li" onerror="this.outerHTML='<div class=org-initials>PL</div>'">
+      <h4>Yong Li</h4>
+      <div class="org-aff">Tsinghua University, China</div>
+      <div class="org-area">Artificial intelligence, Data science</div>
+    </div>
+    <div class="org-card">
+      <img class="org-avatar" src="assets/organizers/ping_luo.jpg" alt="Ping Luo" onerror="this.outerHTML='<div class=org-initials>PL</div>'">
+      <h4>Ping Luo</h4>
+      <div class="org-aff">The University of Hong Kong, China</div>
+      <div class="org-area">Vision-Language Models, Autonomous Driving</div>
+    </div>
+  </div>
+</section>
+
+<section id="program-committee">
+  <h2>Program Committee</h2>
+  <div class="committee-box">
+    <p><strong>Program Committee members</strong></p>
+    <div class="pc-grid">
+      <div class="org-card">
+        <img class="org-avatar" src="assets/Committee/tang.jpg" alt="Yingjuan Tang" onerror="this.outerHTML='<div class=org-initials>HY</div>'">
+        <h4>Yingjuan Tang</h4>
+        <div class="org-aff">Zhengzhou University of Light Industry, China</div>
+      </div>
+      <div class="org-card">
+        <img class="org-avatar" src="assets/Committee/zhang.jpg" alt="Lingjun Zhang" onerror="this.outerHTML='<div class=org-initials>HY</div>'">
+        <h4>Lingjun Zhang</h4>
+        <div class="org-aff">Tsinghua University, China</div>
+      </div>
+      <div class="org-card">
+        <img class="org-avatar" src="assets/Committee/luo.jpg" alt="Yuechen Luo" onerror="this.outerHTML='<div class=org-initials>HY</div>'">
+        <h4>Yuechen Luo</h4>
+        <div class="org-aff">Tsinghua University, China</div>
+      </div>
+      <div class="org-card">
+        <img class="org-avatar" src="assets/Committee/shen.jpg" alt="Hanwen Shen" onerror="this.outerHTML='<div class=org-initials>HY</div>'">
+        <h4>Hanwen Shen</h4>
+        <div class="org-aff">Stevens Institute of Technology, USA</div>
+      </div>
+      <div class="org-card">
+        <img class="org-avatar" src="assets/Committee/lv.jpg" alt="Yang Lyu" onerror="this.outerHTML='<div class=org-initials>HY</div>'">
+        <h4>Yang Lyu</h4>
+        <div class="org-aff">University of Michigan, USA</div>
+      </div>
+      <div class="org-card">
+        <img class="org-avatar" src="assets/Committee/yuner_zhang.jpg" alt="Yuner Zhang" onerror="this.outerHTML='<div class=org-initials>YZ</div>'">
+        <h4>Yuner Zhang</h4>
+        <div class="org-aff">Carnegie Mellon University, USA</div>
+      </div>
+      <div class="org-card">
+        <img class="org-avatar" src="assets/Committee/zuo_yushen.jpg" alt="Zuo Yushen" onerror="this.outerHTML='<div class=org-initials>ZY</div>'">
+        <h4>Zuo Yushen</h4>
+        <div class="org-aff">SimpleAI, China</div>
+      </div>
+      <div class="org-card">
+        <img class="org-avatar" src="assets/Committee/jinhao_zhang.png" alt="Jinhao Zhang" onerror="this.outerHTML='<div class=org-initials>JZ</div>'">
+        <h4>Jinhao Zhang</h4>
+        <div class="org-aff">Harbin Institute of Technology (Shenzhen), China</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sponsors" class="sponsor-section">
+  <h2>Sponsors</h2>
+  <p class="sponsor-lead">With support from our industry partners.</p>
+  <div class="sponsor-card">
+    <div class="sponsor-grid" aria-label="Workshop sponsors">
+      <div class="sponsor-logo-tile"><img class="sponsor-logo" src="assets/sponsor-simpleai.png" alt="SimpleAI"></div>
+      <div class="sponsor-logo-tile"><img class="sponsor-logo" src="assets/sponsor-tuojingai.png" alt="TuojingAI"></div>
+      <div class="sponsor-logo-tile"><img class="sponsor-logo" src="assets/sponsor-safeworld.png" alt="SafeWorld"></div>
+      <div class="sponsor-logo-tile"><img class="sponsor-logo" src="assets/sponsor-04.png" alt="XSPARK AI"></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2>Get in Touch</h2>
+  <div class="contact-layout">
+    <p class="contact-copy">For submission questions, sponsorship inquiries, or program updates, contact the lead organizers directly.</p>
+    <div class="contact-details">
+      <div class="contact-emails">
+        <a class="contact-email" href="mailto:yuhaibao94@gmail.com">yuhaibao94@gmail.com</a>
+        <a class="contact-email" href="mailto:lei.yang@ntu.edu.sg">lei.yang@ntu.edu.sg</a>
+      </div>
+      <div class="share-row" aria-label="Share workshop">
+        <a class="share-button" href="https://twitter.com/intent/tweet?text=Physical%20World%20Models%20for%20Scaling%20Embodied%20AI%20%40%20IROS%202026%20-%20From%20Scalable%20Physical%20Experience%20to%20Predictive%20Embodied%20Action" target="_blank" rel="noopener">
+          <span class="share-icon">X</span>
+          <span>Share on X</span>
+        </a>
+        <a class="share-button" href="https://www.linkedin.com/sharing/share-offsite/" target="_blank" rel="noopener">
+          <span class="share-icon linkedin">in</span>
+          <span>Share on LinkedIn</span>
+        </a>
+        <a class="share-button" href="mailto:?subject=IROS%202026%20Workshop%3A%20Physical%20World%20Models%20for%20Scaling%20Embodied%20AI&body=Physical%20World%20Models%20for%20Scaling%20Embodied%20AI%20-%20From%20Scalable%20Physical%20Experience%20to%20Predictive%20Embodied%20Action.">
+          <span class="share-icon email">@</span>
+          <span>Share by Email</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="venue">
+  <h2>Venue</h2>
+  <div class="venue-box">
+    <p><strong>David L. Lawrence Convention Center</strong><br>
+    1000 Fort Duquesne Boulevard, Pittsburgh, PA 15222, United States</p>
+    <p class="muted" style="margin:0">Held as part of IROS 2026 (September 27 – October 1, 2026). Room assignment will be announced in the official IROS program. The workshop is an in-person event.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  IROS 2026 Workshop — Physical World Models for Scaling Embodied AI
+</footer>
+
+</body>
+</html>
