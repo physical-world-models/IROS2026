@@ -31,7 +31,7 @@
     display: flex; justify-content: center; gap: 4px; flex-wrap: wrap;
     padding: 12px 16px; border-bottom: 2px solid var(--gold);
   }
-  nav a { color: #d6dde4; text-decoration: none; font-size: 14px; font-weight: 600; padding: 6px 14px; border-radius: 20px; transition: all .2s; }
+  nav a { color: #d6dde4; text-decoration: none; font-size: 14px; font-weight: 600; padding: 6px 10px; border-radius: 20px; transition: all .2s; }
   nav a:hover { background: var(--ink-2); color: var(--gold); }
 
   header {
@@ -69,6 +69,48 @@
   p { margin-bottom: 14px; }
   main p:not(.muted), .direction-card li, .venue-box p { text-align: justify; text-justify: inter-word; }
   .muted { color: var(--muted); font-size: 14px; }
+
+  #accepted-papers, .paper-entry { scroll-margin-top: 120px; }
+  .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+  .papers-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 8px; }
+  .papers-heading h2 { margin-bottom: 0; }
+  #accepted-papers p { text-align: left; text-justify: auto; }
+  .papers-intro { margin: 0 0 12px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+  .papers-count { flex-shrink: 0; color: var(--muted); font-size: 13px; white-space: nowrap; }
+  .papers-list { background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .paper-entry { display: flex; flex-wrap: wrap; align-items: center; column-gap: 14px; padding: 12px 16px; }
+  .paper-entry + .paper-entry { border-top: 1px solid var(--border); }
+  .paper-entry h3 { flex-basis: 100%; min-width: 0; margin: 0 0 3px; color: var(--ink); font-size: 15.5px; font-weight: 600; line-height: 1.4; overflow-wrap: anywhere; }
+  .paper-type { font-weight: 700; white-space: nowrap; }
+  .paper-type.oral { color: #b3261e; }
+  .paper-type.poster { color: var(--steel); }
+  .paper-authors { flex-basis: 100%; min-width: 0; margin: 0; color: #46525e; font-size: 13px; line-height: 1.55; overflow-wrap: anywhere; }
+  .paper-authors sup { margin-left: 2px; color: #7b5914; font-size: .72em; line-height: 0; }
+  .paper-affiliations { min-width: 0; margin-top: 3px; }
+  .paper-affiliations[open] { flex-basis: 100%; }
+  .paper-affiliations summary { display: inline-flex; align-items: center; gap: 7px; min-height: 26px; padding: 2px 0; color: var(--steel); font-size: 12px; font-weight: 600; cursor: pointer; list-style: none; }
+  .paper-affiliations summary::-webkit-details-marker { display: none; }
+  .paper-affiliations summary::after { content: ""; width: 6px; height: 6px; margin-top: -3px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg); }
+  .paper-affiliations[open] summary::after { margin-top: 3px; transform: rotate(225deg); }
+  .paper-affiliations summary:hover { color: var(--ink); }
+  .paper-affiliations ul { display: grid; gap: 3px; margin: 3px 0 4px; padding: 8px 12px; border-left: 2px solid #dbc58f; border-radius: 0 4px 4px 0; background: #f6f7f8; list-style: none; }
+  .paper-affiliations li { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 5px; color: #46525e; font-size: 12px; line-height: 1.5; }
+  .paper-affiliations li sup { color: #7b5914; font-size: 11px; line-height: 1.9; }
+  .paper-links { display: flex; flex-wrap: wrap; gap: 12px; min-width: 0; margin-top: 3px; }
+  .paper-link { display: inline-flex; align-items: center; gap: 4px; min-height: 26px; padding: 2px 0; color: #344b60; font-size: 12px; font-weight: 600; text-decoration: none; text-underline-offset: 3px; }
+  .paper-link:hover { color: var(--ink); text-decoration: underline; }
+  .paper-link span { color: #7b5914; font-size: 12px; }
+  .paper-link:focus-visible, .paper-affiliations summary:focus-visible { outline: 2px solid #80601b; outline-offset: 4px; }
+  .paper-entry .paper-note { flex-basis: 100%; order: 1; margin: 3px 0 0; color: var(--muted); font-size: 11.5px; }
+  @media (max-width: 600px) {
+    .papers-heading { flex-wrap: wrap; gap: 4px 12px; }
+    .paper-entry { padding: 11px 12px; column-gap: 14px; }
+    .paper-entry h3 { font-size: 15px; }
+    .paper-authors { font-size: 12.5px; }
+    .paper-affiliations summary, .paper-link { min-height: 32px; }
+    .paper-affiliations ul { padding: 8px 10px; }
+  }
+
   .direction-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px 24px; margin-top: 14px; border-top: 4px solid var(--gold); }
   .direction-card.d2 { border-top-color: var(--steel); }
   .direction-card h3 { font-size: 18px; color: var(--ink); margin-bottom: 6px; }
@@ -261,6 +303,7 @@
   <a href="#speakers">Speakers</a>
   <a href="#program">Program</a>
   <a href="#cfp">Call for Papers</a>
+  <a href="#accepted-papers">Accepted Papers</a>
   <a href="#competition">WorldArena 2.0 Challenge</a>
   <a href="#organizers">Organizers</a>
   <a href="#program-committee">Program Committee</a>
@@ -274,9 +317,9 @@
   <h1>Physical World Models for <span class="hl">Scaling Embodied AI (PWMS2026)</span></h1>
   <p class="subtitle">From Scalable Physical Experience to Predictive Embodied Action.</p>
   <div class="hero-actions" aria-label="Primary workshop actions">
-    <a class="hero-button primary" href="#cfp">Call for Papers</a>
+    <a class="hero-button primary" href="#accepted-papers">Accepted Papers</a>
     <a class="hero-button secondary" href="http://iros2026challenge.world-arena.ai/" target="_blank" rel="noopener noreferrer">WorldArena 2.0 Challenge</a>
-    <a class="hero-button secondary" href="https://openreview.net/group?id=IEEE.org/IROS/2026/Workshop/PWMS" target="_blank" rel="noopener noreferrer">Submit a Paper</a>
+    <a class="hero-button secondary" href="#program">View Program</a>
   </div>
   <div class="meta-row">
     <div class="meta-item"><strong>Date</strong>Thursday, October 1, 2026</div>
@@ -370,14 +413,15 @@
     <tr><td class="time">13:35 – 14:00</td><td>Keynote 1 — Jiajun Wu (Stanford University, USA)</td></tr>
     <tr><td class="time">14:00 – 14:25</td><td>Keynote 2 — Rudra P.K. Poudel (Toshiba Europe, UK)</td></tr>
     <tr><td class="time">14:25 – 14:40</td><td>Keynote 3 — Lian Ruan (X Square Robot)</td></tr>
-    <tr><td class="time">14:40 – 15:00</td><td>Oral Presentations I (2 × 10 min)</td></tr>
-    <tr class="break-row"><td class="time">15:00 – 15:25</td><td>Coffee Break and Poster Session</td></tr>
-    <tr><td class="time">15:25 – 15:50</td><td>Keynote 4 — Abhinav Valada (University of Freiburg, Germany)</td></tr>
-    <tr><td class="time">15:50 – 16:15</td><td>Keynote 5 — Ding Zhao (Carnegie Mellon University, USA)</td></tr>
-    <tr><td class="time">16:15 – 16:40</td><td>Keynote 6 — Katerina Fragkiadaki (Carnegie Mellon University, USA)</td></tr>
-    <tr><td class="time">16:40 – 17:00</td><td>Oral Presentations II (2 × 10 min)</td></tr>
-    <tr><td class="time">17:00 – 17:20</td><td>Challenge Session — WorldArena 2.0 Challenge track results and winning-team presentations</td></tr>
-    <tr><td class="time">17:20 – 17:30</td><td>Best Paper/Poster-Award Ceremony & Closing Remarks</td></tr>
+    <tr><td class="time">14:40 – 14:55</td><td>Keynote 4 — Mingle Li (SimpleAI)</td></tr>
+    <tr><td class="time">14:55 – 15:15</td><td>Oral Presentations I (2 × 8 min)</td></tr>
+    <tr class="break-row"><td class="time">15:15 – 15:30</td><td>Coffee Break and Poster Session</td></tr>
+    <tr><td class="time">15:30 – 15:55</td><td>Keynote 5 — Abhinav Valada (University of Freiburg, Germany)</td></tr>
+    <tr><td class="time">15:55 – 16:20</td><td>Keynote 6 — Ding Zhao (Carnegie Mellon University, USA)</td></tr>
+    <tr><td class="time">16:20 – 16:45</td><td>Keynote 7 — Katerina Fragkiadaki (Carnegie Mellon University, USA)</td></tr>
+    <tr><td class="time">16:45 – 17:05</td><td>Oral Presentations II (2 × 8 min)</td></tr>
+    <tr><td class="time">17:05 – 17:20</td><td>Challenge Session — WorldArena 2.0 Challenge track results and winning-team presentations</td></tr>
+    <tr><td class="time">17:20 – 17:30</td><td>Best Paper and Best Poster Awards &amp; Closing Remarks</td></tr>
   </table>
 </section>
 
@@ -441,6 +485,262 @@
   <div class="cfp-footer">
     <p>Submissions will be reviewed for relevance, originality, technical quality, clarity, and potential impact.</p>
     <p>Dates are tentative and may be adjusted. Submissions will be handled via <a href="https://openreview.net/group?id=IEEE.org/IROS/2026/Workshop/PWMS" target="_blank" rel="noopener noreferrer">OpenReview</a>.</p>
+  </div>
+</section>
+
+<section id="accepted-papers" aria-labelledby="accepted-papers-heading">
+  <div class="papers-heading">
+    <h2 id="accepted-papers-heading">Accepted Papers</h2>
+    <span class="papers-count">20 papers</span>
+  </div>
+  <p class="papers-intro">Non-archival workshop · Papers will not appear in the IROS proceedings.</p>
+  <div class="papers-list">
+    <article class="paper-entry" id="paper-11" aria-labelledby="paper-11-title">
+      <h3 id="paper-11-title"><span class="paper-type oral">[Oral]</span> Learning Versatile Humanoid Manipulation with Touch Dreaming</h3>
+      <p class="paper-authors"><span class="paper-author">Yaru Niu<sup>1,3</sup></span>, <span class="paper-author">Zhenlong Fang<sup>1</sup></span>, <span class="paper-author">Binghong Chen<sup>1</sup></span>, <span class="paper-author">Shuai Zhou<sup>1</sup></span>, <span class="paper-author">Revanth Krishna Senthilkumaran<sup>1,3</sup></span>, <span class="paper-author">Hao Zhang<sup>1,2</sup></span>, <span class="paper-author">Bingqing Chen<sup>3</sup></span>, <span class="paper-author">Chen Qiu<sup>3</sup></span>, <span class="paper-author">H. Eric Tseng<sup>2</sup></span>, <span class="paper-author">Jonathan Francis<sup>1,3</sup></span>, <span class="paper-author">Ding Zhao<sup>1</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for Learning Versatile Humanoid Manipulation with Touch Dreaming</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>Carnegie Mellon University, Pittsburgh, USA</span></li>
+          <li><sup>2</sup><span>The University of Texas at Arlington, Arlington, USA</span></li>
+          <li><sup>3</sup><span>Bosch Center for Artificial Intelligence, Pittsburgh, USA</span></li>
+        </ul>
+      </details>
+      <div class="paper-links" aria-label="Resources for Learning Versatile Humanoid Manipulation with Touch Dreaming">
+        <a class="paper-link" href="https://humanoid-touch-dream.github.io/" target="_blank" rel="noopener noreferrer">Project <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-19" aria-labelledby="paper-19-title">
+      <h3 id="paper-19-title"><span class="paper-type oral">[Oral]</span> Egocentric Cross-Embodiment Manipulation with Embodiment Dreaming</h3>
+      <p class="paper-authors"><span class="paper-author">Binghong Chen<sup>1,*</sup></span>, <span class="paper-author">Yaru Niu<sup>1,*</sup></span>, <span class="paper-author">Changwei Yao<sup>1,*</sup></span>, <span class="paper-author">Shangtao Li<sup>1,*</sup></span>, <span class="paper-author">Zhenlong Fang<sup>1</sup></span>, <span class="paper-author">Revanth Krishna Senthilkumaran<sup>1,3</sup></span>, <span class="paper-author">Shuai Zhou<sup>1</sup></span>, <span class="paper-author">Yuemin Mao<sup>1</sup></span>, <span class="paper-author">Yudong Luo<sup>1</sup></span>, <span class="paper-author">Peiqi Yu<sup>1</sup></span>, <span class="paper-author">Hao Zhang<sup>1,2</sup></span>, <span class="paper-author">Bingqing Chen<sup>3</sup></span>, <span class="paper-author">Chen Qiu<sup>3</sup></span>, <span class="paper-author">H. Eric Tseng<sup>2</sup></span>, <span class="paper-author">Changliu Liu<sup>1</sup></span>, <span class="paper-author">Jonathan Francis<sup>1,3</sup></span>, <span class="paper-author">Ding Zhao<sup>1</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for Egocentric Cross-Embodiment Manipulation with Embodiment Dreaming</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>Carnegie Mellon University, Pittsburgh, USA</span></li>
+          <li><sup>2</sup><span>The University of Texas at Arlington, Arlington, USA</span></li>
+          <li><sup>3</sup><span>Bosch Center for Artificial Intelligence, Pittsburgh, USA</span></li>
+        </ul>
+      </details>
+      <p class="paper-note">* Equal contribution.</p>
+      <div class="paper-links" aria-label="Resources for Egocentric Cross-Embodiment Manipulation with Embodiment Dreaming">
+        <a class="paper-link" href="https://egox-embodiment.github.io/" target="_blank" rel="noopener noreferrer">Project <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-16" aria-labelledby="paper-16-title">
+      <h3 id="paper-16-title"><span class="paper-type oral">[Oral]</span> A Recipe for Efficient Sim-to-Real Transfer in Manipulation with Online Imitation–Pretrained World Models</h3>
+      <p class="paper-authors"><span class="paper-author">Yilin Wang<sup>1</sup></span>, <span class="paper-author">Shangzhe Li<sup>2</sup></span>, <span class="paper-author">Haoyi Niu<sup>3</sup></span>, <span class="paper-author">Jiawei Fu<sup>1</sup></span>, <span class="paper-author">Zhiao Huang<sup>4</sup></span>, <span class="paper-author">Weitong Zhang<sup>2</sup></span>, <span class="paper-author">Hao Su<sup>4</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for A Recipe for Efficient Sim-to-Real Transfer in Manipulation with Online Imitation–Pretrained World Models</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>UC San Diego, USA</span></li>
+          <li><sup>2</sup><span>University of North Carolina at Chapel Hill, USA</span></li>
+          <li><sup>3</sup><span>UC Berkeley, USA</span></li>
+          <li><sup>4</sup><span>Sudo AI GmbH, Switzerland</span></li>
+        </ul>
+      </details>
+      <div class="paper-links" aria-label="Resources for A Recipe for Efficient Sim-to-Real Transfer in Manipulation with Online Imitation–Pretrained World Models">
+        <a class="paper-link" href="https://arxiv.org/pdf/2510.02538" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-18" aria-labelledby="paper-18-title">
+      <h3 id="paper-18-title"><span class="paper-type oral">[Oral]</span> IFG: Internet-Scale Guidance for Functional Grasping Generation</h3>
+      <p class="paper-authors"><span class="paper-author">Muxin Liu</span>, <span class="paper-author">Mingxuan Li</span>, <span class="paper-author">Kenneth Shaw</span>, <span class="paper-author">Deepak Pathak</span></p>
+    </article>
+    <article class="paper-entry" id="paper-14" aria-labelledby="paper-14-title">
+      <h3 id="paper-14-title"><span class="paper-type oral">[Oral]</span> KnockGS: Interaction-Grounded Calibration of Physical Gaussian Representations</h3>
+      <p class="paper-authors"><span class="paper-author">Chenchen Ge<sup>1,2,*</sup></span>, <span class="paper-author">Hanwen Shen<sup>3,*</sup></span>, <span class="paper-author">Bowen Jing<sup>1</sup></span>, <span class="paper-author">Jiyuan Cai<sup>7</sup></span>, <span class="paper-author">Xiaofeng Wang<sup>4,8</sup></span>, <span class="paper-author">Hongsen Lei<sup>9</sup></span>, <span class="paper-author">Weitao Zhou<sup>4,5</sup></span>, <span class="paper-author">Dandan Zhang<sup>6</sup></span>, <span class="paper-author">Haibao Yu<sup>1,10,†</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for KnockGS: Interaction-Grounded Calibration of Physical Gaussian Representations</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>Tuojing Intelligence</span></li>
+          <li><sup>2</sup><span>Southeast University</span></li>
+          <li><sup>3</sup><span>Stevens Institute of Technology</span></li>
+          <li><sup>4</sup><span>Tsinghua University</span></li>
+          <li><sup>5</sup><span>Simple AI</span></li>
+          <li><sup>6</sup><span>Imperial College London</span></li>
+          <li><sup>7</sup><span>Shanghai Jiao Tong University</span></li>
+          <li><sup>8</sup><span>GigaAI</span></li>
+          <li><sup>9</sup><span>Sun Yat-sen University</span></li>
+          <li><sup>10</sup><span>The University of Hong Kong</span></li>
+        </ul>
+      </details>
+      <p class="paper-note">* Equal contribution. † Corresponding author.</p>
+      <div class="paper-links" aria-label="Resources for KnockGS: Interaction-Grounded Calibration of Physical Gaussian Representations">
+        <a class="paper-link" href="https://github.com/TuojingAI/KnockGS" target="_blank" rel="noopener noreferrer">Project <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-1" aria-labelledby="paper-1-title">
+      <h3 id="paper-1-title"><span class="paper-type oral">[Oral]</span> Wild-World: Action-Conditioned RGB-D-Semantic World Modeling for Field Robotics</h3>
+      <p class="paper-authors"><span class="paper-author">Zihang Wang</span>, <span class="paper-author">Yuhang Chu</span>, <span class="paper-author">Wenkai Zhu</span>, <span class="paper-author">Huateng Wu</span>, <span class="paper-author">shuyuan Li</span>, <span class="paper-author">Dong Kong</span></p>
+    </article>
+    <article class="paper-entry" id="paper-4" aria-labelledby="paper-4-title">
+      <h3 id="paper-4-title"><span class="paper-type oral">[Oral]</span> Action Response Is Not Factual Direction: A Prospective Audit of Robot Video World Models</h3>
+      <p class="paper-authors"><span class="paper-author">Yinuo Chen<sup>1</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for Action Response Is Not Factual Direction: A Prospective Audit of Robot Video World Models</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>The Hong Kong University of Science and Technology (Guangzhou), Guangzhou, China</span></li>
+        </ul>
+      </details>
+      <div class="paper-links" aria-label="Resources for Action Response Is Not Factual Direction: A Prospective Audit of Robot Video World Models">
+        <a class="paper-link" href="https://engrxiv.org/preprint/view/8244" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-2" aria-labelledby="paper-2-title">
+      <h3 id="paper-2-title"><span class="paper-type poster">[Poster]</span> Closed-Loop Planning in Latent World Models for Contact-Rich Manipulation: A Diagnostic Study on Push-T</h3>
+      <p class="paper-authors"><span class="paper-author">Jiong Ding<sup>1</sup></span>, <span class="paper-author">Xu Mohan<sup>1</sup></span>, <span class="paper-author">Zhuoran Xie<sup>1</sup></span>, <span class="paper-author">Qingyun Ye<sup>1</sup></span>, <span class="paper-author">Chen Rui<sup>1</sup></span>, <span class="paper-author">Fan Zhou<sup>1</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for Closed-Loop Planning in Latent World Models for Contact-Rich Manipulation: A Diagnostic Study on Push-T</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>Beihang University, Beijing, China</span></li>
+        </ul>
+      </details>
+      <div class="paper-links" aria-label="Resources for Closed-Loop Planning in Latent World Models for Contact-Rich Manipulation: A Diagnostic Study on Push-T">
+        <a class="paper-link" href="https://github.com/Alwayseeyou/Alwayseeyou.github.io" target="_blank" rel="noopener noreferrer">Project <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-3" aria-labelledby="paper-3-title">
+      <h3 id="paper-3-title"><span class="paper-type poster">[Poster]</span> Toward Physically Grounded JEPA World Models for Goal-Conditioned Robotic Planning</h3>
+      <p class="paper-authors"><span class="paper-author">Muyuan Liu<sup>1</sup></span>, <span class="paper-author">Yue Huang<sup>1</sup></span>, <span class="paper-author">Zheng Liang<sup>1</sup></span>, <span class="paper-author">Xiang Gao<sup>1</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for Toward Physically Grounded JEPA World Models for Goal-Conditioned Robotic Planning</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>GENISOM AI, Beijing, China</span></li>
+        </ul>
+      </details>
+      <div class="paper-links" aria-label="Resources for Toward Physically Grounded JEPA World Models for Goal-Conditioned Robotic Planning">
+        <a class="paper-link" href="https://arxiv.org/abs/2609.03565" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+        <a class="paper-link" href="https://huggingface.co/kikihuang/GA-WM" target="_blank" rel="noopener noreferrer">Models <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+        <a class="paper-link" href="https://github.com/zsibot/gawm" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-5" aria-labelledby="paper-5-title">
+      <h3 id="paper-5-title"><span class="paper-type poster">[Poster]</span> When Ensemble Disagreement Is Not a Physics Check: Stress-Testing World Models Under Contact-Parameter Shift</h3>
+      <p class="paper-authors"><span class="paper-author">Krishna Harish</span></p>
+    </article>
+    <article class="paper-entry" id="paper-6" aria-labelledby="paper-6-title">
+      <h3 id="paper-6-title"><span class="paper-type poster">[Poster]</span> Vision Language Grasping System Adapted for Digital Twin</h3>
+      <p class="paper-authors"><span class="paper-author">Yanran Yi</span>, <span class="paper-author">Xiao Li</span></p>
+    </article>
+    <article class="paper-entry" id="paper-7" aria-labelledby="paper-7-title">
+      <h3 id="paper-7-title"><span class="paper-type poster">[Poster]</span> Gaussian4XWAM: Gaussian Field Enhancement for World-Action Models</h3>
+      <p class="paper-authors"><span class="paper-author">Zijian Zhang<sup>1</sup></span>, <span class="paper-author">Yuqing Jiang<sup>1</sup></span>, <span class="paper-author">Haibao Yu<sup>2</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for Gaussian4XWAM: Gaussian Field Enhancement for World-Action Models</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>University of Chinese Academy of Sciences, Beijing, China</span></li>
+          <li><sup>2</sup><span>The University of Hong Kong, Hong Kong SAR, China</span></li>
+        </ul>
+      </details>
+      <div class="paper-links" aria-label="Resources for Gaussian4XWAM: Gaussian Field Enhancement for World-Action Models">
+        <a class="paper-link" href="https://tuojingai.github.io/GaussianWAM-project-page/" target="_blank" rel="noopener noreferrer">Project <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-8" aria-labelledby="paper-8-title">
+      <h3 id="paper-8-title"><span class="paper-type poster">[Poster]</span> Towards Trustworthy Surgical Gesture Recognition with Uncertainty-Calibrated Kinematic World Models</h3>
+      <p class="paper-authors"><span class="paper-author">Mu Xing<sup>1</sup></span>, <span class="paper-author">Lan Wei<sup>1</sup></span>, <span class="paper-author">Piotr Blaszyk<sup>1</sup></span>, <span class="paper-author">Dandan Zhang<sup>1</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for Towards Trustworthy Surgical Gesture Recognition with Uncertainty-Calibrated Kinematic World Models</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>Imperial College London, London, UK</span></li>
+        </ul>
+      </details>
+    </article>
+    <article class="paper-entry" id="paper-9" aria-labelledby="paper-9-title">
+      <h3 id="paper-9-title"><span class="paper-type poster">[Poster]</span> Bridging Semantics and Physics with Constrained LLMs for Safe and Trustworthy Robotic Manipulation*</h3>
+      <p class="paper-authors"><span class="paper-author">Lan Wei<sup>1</sup></span>, <span class="paper-author">Wenhao Hong<sup>1</sup></span>, <span class="paper-author">Dandan Zhang<sup>1</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for Bridging Semantics and Physics with Constrained LLMs for Safe and Trustworthy Robotic Manipulation*</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>Imperial College London, London, UK</span></li>
+        </ul>
+      </details>
+      <div class="paper-links" aria-label="Resources for Bridging Semantics and Physics with Constrained LLMs for Safe and Trustworthy Robotic Manipulation*">
+        <a class="paper-link" href="https://arxiv.org/pdf/2608.29379" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-10" aria-labelledby="paper-10-title">
+      <h3 id="paper-10-title"><span class="paper-type poster">[Poster]</span> Prediction Fidelity Predicts Some Uses of a World Model and Not Others</h3>
+      <p class="paper-authors"><span class="paper-author">Varun Puttagunta</span></p>
+    </article>
+    <article class="paper-entry" id="paper-12" aria-labelledby="paper-12-title">
+      <h3 id="paper-12-title"><span class="paper-type poster">[Poster]</span> Anticipation-VLA: Solving Long-Horizon Embodied Tasks via Anticipation-based Subgoal Generation</h3>
+      <p class="paper-authors"><span class="paper-author">Zhilong Zhang<sup>1,2</sup></span>, <span class="paper-author">Wenyu Luo<sup>2</sup></span>, <span class="paper-author">Haonan Wang<sup>2</sup></span>, <span class="paper-author">Yifei Sheng<sup>2</sup></span>, <span class="paper-author">Yidi Wang<sup>1,2</sup></span>, <span class="paper-author">Hanyuan Guo<sup>2</sup></span>, <span class="paper-author">Haoxiang Ren<sup>2</sup></span>, <span class="paper-author">Xinghao Du<sup>1,2</sup></span>, <span class="paper-author">Yuhan Che<sup>3</sup></span>, <span class="paper-author">Tongtong Cao<sup>3</sup></span>, <span class="paper-author">Lei Yuan<sup>1,2</sup></span>, <span class="paper-author">Yang Yu<sup>1,2,†</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for Anticipation-VLA: Solving Long-Horizon Embodied Tasks via Anticipation-based Subgoal Generation</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>National Key Laboratory for Novel Software Technology, Nanjing University, Nanjing, China</span></li>
+          <li><sup>2</sup><span>School of Artificial Intelligence, Nanjing University, Nanjing, China</span></li>
+          <li><sup>3</sup><span>Department of Foundation Model, 2012 Labs, Huawei, Beijing, China</span></li>
+        </ul>
+      </details>
+      <div class="paper-links" aria-label="Resources for Anticipation-VLA: Solving Long-Horizon Embodied Tasks via Anticipation-based Subgoal Generation">
+        <a class="paper-link" href="https://arxiv.org/pdf/2605.01772" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-13" aria-labelledby="paper-13-title">
+      <h3 id="paper-13-title"><span class="paper-type poster">[Poster]</span> Change-Localized Streaming Gaussian Spatial Memory for Long-Video 4D Reconstruction</h3>
+      <p class="paper-authors"><span class="paper-author">Hanwen Shen<sup>2</sup></span>, <span class="paper-author">Lei Yang<sup>3</sup></span>, <span class="paper-author">Haibao Yu<sup>1,4</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for Change-Localized Streaming Gaussian Spatial Memory for Long-Video 4D Reconstruction</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>Tuojing Intelligence</span></li>
+          <li><sup>2</sup><span>Stevens Institute of Technology, Hoboken, USA</span></li>
+          <li><sup>3</sup><span>Nanyang Technological University, Singapore</span></li>
+          <li><sup>4</sup><span>The University of Hong Kong, Hong Kong</span></li>
+        </ul>
+      </details>
+      <div class="paper-links" aria-label="Resources for Change-Localized Streaming Gaussian Spatial Memory for Long-Video 4D Reconstruction">
+        <a class="paper-link" href="https://github.com/TuojingAI/Change-Localized-Streaming-Gaussian-Spatial-Memory-for-Long-Video-4D-Reconstruction.git" target="_blank" rel="noopener noreferrer">Code <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-15" aria-labelledby="paper-15-title">
+      <h3 id="paper-15-title"><span class="paper-type poster">[Poster]</span> AXIS: A Growable Community-Driven Data Engine for Scalable Robot Manipulation</h3>
+      <p class="paper-authors"><span class="paper-author">Mengfei Zhao<sup>9</sup></span>, <span class="paper-author">Dihong Huang<sup>1,2</sup></span>, <span class="paper-author">Yikai Tang<sup>2</sup></span>, <span class="paper-author">Peihao Li<sup>2</sup></span>, <span class="paper-author">Mingxuan Yan<sup>3</sup></span>, <span class="paper-author">Ruiqi Zhuang<sup>1</sup></span>, <span class="paper-author">Yanjia Huang<sup>4</sup></span>, <span class="paper-author">Jie Wang<sup>1,5</sup></span>, <span class="paper-author">Hai Zhai<sup>1</sup></span>, <span class="paper-author">Tony Zhou<sup>1,6</sup></span>, <span class="paper-author">Rui Zhang<sup>1,7</sup></span>, <span class="paper-author">Zhexi Luo<sup>1,8</sup></span>, <span class="paper-author">Yuchen Huang<sup>1,7</sup></span>, <span class="paper-author">Jianfei Yang<sup>9</sup></span>, <span class="paper-author">Jiachen Li<sup>3</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for AXIS: A Growable Community-Driven Data Engine for Scalable Robot Manipulation</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>Axis Robotics</span></li>
+          <li><sup>2</sup><span>University of California, Berkeley</span></li>
+          <li><sup>3</sup><span>Georgia Institute of Technology</span></li>
+          <li><sup>4</sup><span>Texas A&amp;M University</span></li>
+          <li><sup>5</sup><span>Johns Hopkins University</span></li>
+          <li><sup>6</sup><span>University of Pennsylvania</span></li>
+          <li><sup>7</sup><span>University of Michigan</span></li>
+          <li><sup>8</sup><span>National University of Singapore</span></li>
+          <li><sup>9</sup><span>Nanyang Technological University</span></li>
+        </ul>
+      </details>
+      <div class="paper-links" aria-label="Resources for AXIS: A Growable Community-Driven Data Engine for Scalable Robot Manipulation">
+        <a class="paper-link" href="https://arxiv.org/pdf/2607.21588" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-20" aria-labelledby="paper-20-title">
+      <h3 id="paper-20-title"><span class="paper-type poster">[Poster]</span> Composing Unseen Behavior Combinations Across Worlds with Transplantable Dynamics</h3>
+      <p class="paper-authors"><span class="paper-author">Abhinav Sadras<sup>1</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for Composing Unseen Behavior Combinations Across Worlds with Transplantable Dynamics</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>Vellore Institute of Technology, Vellore, India</span></li>
+        </ul>
+      </details>
+      <div class="paper-links" aria-label="Resources for Composing Unseen Behavior Combinations Across Worlds with Transplantable Dynamics">
+        <a class="paper-link" href="https://github.com/Delphictunic/pwms-2026" target="_blank" rel="noopener noreferrer">Project <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
+    <article class="paper-entry" id="paper-21" aria-labelledby="paper-21-title">
+      <h3 id="paper-21-title"><span class="paper-type poster">[Poster]</span> Decision-Level Auditing of Latent Robot World Models</h3>
+      <p class="paper-authors"><span class="paper-author">Anikait Rana<sup>1</sup></span>, <span class="paper-author">Siddhant Rana<sup>1</sup></span>, <span class="paper-author">Aditya Rao Udupi<sup>1</sup></span></p>
+      <details class="paper-affiliations">
+        <summary>Affiliations<span class="visually-hidden"> for Decision-Level Auditing of Latent Robot World Models</span></summary>
+        <ul aria-label="Author affiliations">
+          <li><sup>1</sup><span>Independent Researcher</span></li>
+        </ul>
+      </details>
+      <div class="paper-links" aria-label="Resources for Decision-Level Auditing of Latent Robot World Models">
+        <a class="paper-link" href="https://penguinz3.github.io/latent-plan-audit/paper/decision_level_auditing_iros_pwms.pdf" target="_blank" rel="noopener noreferrer">Paper <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span></a>
+      </div>
+    </article>
   </div>
 </section>
 
