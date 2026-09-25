@@ -185,6 +185,12 @@
   tr:last-child td { border-bottom: none; }
   td.time { white-space: nowrap; font-weight: 600; color: var(--ink-2); width: 140px; }
   tr.break-row td { background: #fbf3df; color: var(--muted); font-style: italic; }
+  #program tr.oral-row td.time { vertical-align: top; }
+  #program .oral-heading { font-weight: 400; color: var(--text); line-height: 1.65; }
+  #program .oral-duration { display: inline-block; white-space: nowrap; }
+  #program .oral-presenters { display: flex; flex-wrap: wrap; gap: 2px 18px; list-style: none; margin-top: 2px; color: var(--muted); }
+  #program .oral-presenters li { min-width: 0; max-width: 100%; font-size: 13px; line-height: 1.5; }
+  #program .presenter-name, #program .presenter-affiliation { font-weight: 400; overflow-wrap: break-word; }
 
   #cfp .cfp-intro { max-width: 820px; margin-bottom: 16px; text-align: left; text-justify: auto; }
   .cfp-policy { display: grid; grid-template-columns: 175px minmax(0, 1fr); gap: 18px; align-items: center; padding: 15px 18px; color: #f5f7fa; background: var(--ink-2); border: 1px solid #344252; border-top: 4px solid var(--gold); border-radius: 8px; }
@@ -407,19 +413,37 @@
 
 <section id="program">
   <h2>Program</h2>
-  <table>
-    <tr><th>Time</th><th>Session</th></tr>
+  <table aria-label="Workshop program">
+    <tr><th scope="col">Time</th><th scope="col">Session</th></tr>
     <tr><td class="time">13:30 – 13:35</td><td>Opening Remarks — Haibao Yu (CMU, USA)</td></tr>
     <tr><td class="time">13:35 – 14:00</td><td>Keynote 1 — Jiajun Wu (Stanford University, USA)</td></tr>
     <tr><td class="time">14:00 – 14:25</td><td>Keynote 2 — Rudra P.K. Poudel (Toshiba Europe, UK)</td></tr>
     <tr><td class="time">14:25 – 14:40</td><td>Keynote 3 — Lian Ruan (X Square Robot)</td></tr>
     <tr><td class="time">14:40 – 14:55</td><td>Keynote 4 — Mingle Li (SimpleAI)</td></tr>
-    <tr><td class="time">14:55 – 15:15</td><td>Oral Presentations I (2 × 8 min)</td></tr>
+    <tr class="oral-row">
+      <td class="time">14:55 – 15:15</td>
+      <td>
+        <div class="oral-heading">Oral Presentations I <span class="oral-duration">(2 × 8 min)</span></div>
+        <ul class="oral-presenters" aria-label="Oral Session I presenters">
+          <li><span class="presenter-name">Yaru Niu</span> (<span class="presenter-affiliation">Carnegie Mellon University</span>)</li>
+          <li><span class="presenter-name">Haoyi Niu</span> (<span class="presenter-affiliation">University of California, Berkeley</span>)</li>
+        </ul>
+      </td>
+    </tr>
     <tr class="break-row"><td class="time">15:15 – 15:30</td><td>Coffee Break and Poster Session</td></tr>
     <tr><td class="time">15:30 – 15:55</td><td>Keynote 5 — Abhinav Valada (University of Freiburg, Germany)</td></tr>
     <tr><td class="time">15:55 – 16:20</td><td>Keynote 6 — Ding Zhao (Carnegie Mellon University, USA)</td></tr>
     <tr><td class="time">16:20 – 16:45</td><td>Keynote 7 — Katerina Fragkiadaki (Carnegie Mellon University, USA)</td></tr>
-    <tr><td class="time">16:45 – 17:05</td><td>Oral Presentations II (2 × 8 min)</td></tr>
+    <tr class="oral-row">
+      <td class="time">16:45 – 17:05</td>
+      <td>
+        <div class="oral-heading">Oral Presentations II <span class="oral-duration">(2 × 8 min)</span></div>
+        <ul class="oral-presenters" aria-label="Oral Session II presenters">
+          <li><span class="presenter-name">Ray Muxin Liu</span> (<span class="presenter-affiliation">Carnegie Mellon University</span>)</li>
+          <li><span class="presenter-name">Binghong Chen</span> (<span class="presenter-affiliation">Carnegie Mellon University</span>)</li>
+        </ul>
+      </td>
+    </tr>
     <tr><td class="time">17:05 – 17:20</td><td>Challenge Session — WorldArena 2.0 Challenge track results and winning-team presentations</td></tr>
     <tr><td class="time">17:20 – 17:30</td><td>Best Paper and Best Poster Awards &amp; Closing Remarks</td></tr>
   </table>
