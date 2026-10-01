@@ -240,7 +240,8 @@
   .committee-box strong { color: var(--ink); }
   .pc-grid { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 14px; margin-top: 14px; }
   .pc-grid .org-card { grid-column: span 2; padding: 16px 10px 14px; }
-  .pc-grid .org-card:nth-child(6) { grid-column: 2 / span 2; }
+  .pc-avatar-frame { overflow: hidden; }
+  .pc-avatar-frame img { display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(2); }
   .pc-grid .org-initials { width: 64px; height: 64px; font-size: 20px; margin-bottom: 10px; }
   .pc-grid .org-card h4 { font-size: 14px; }
   .pc-grid .org-aff { font-size: 11.5px; line-height: 1.35; margin: 4px 0 0; }
@@ -271,7 +272,7 @@
   footer { background: var(--ink); color: #93a1af; text-align: center; padding: 30px 24px; font-size: 13.5px; margin-top: 32px; border-top: 3px solid var(--gold); }
   footer a { color: var(--gold); text-decoration: none; }
 
-  @media (max-width: 900px) { .org-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .org-grid > .org-card:last-child { width: calc((100% - 28px) / 3); } .pc-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } .pc-grid .org-card, .pc-grid .org-card:nth-child(6) { grid-column: auto; } }
+  @media (max-width: 900px) { .org-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } .org-grid > .org-card:last-child { width: calc((100% - 28px) / 3); } .pc-grid { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); } .pc-grid .org-card { grid-column: auto; } }
   @media (max-width: 900px) { .cfp-guideline-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .cfp-guideline-card { min-height: 0; } }
   @media (max-width: 800px) { .awards-grid { grid-template-columns: 1fr; } .award-card h4 { min-height: 0; } }
   @media (max-width: 800px) { .speaker-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .speaker-card:nth-last-child(2):nth-child(4n + 1) { grid-column: auto; } .contact-layout { grid-template-columns: 1fr; gap: 20px; } .contact-details { padding: 20px 0 0; border-top: 1px solid #cfd7df; border-left: none; } .challenge-heading { grid-template-columns: 1fr; align-items: start; gap: 14px; } .challenge-cta { justify-self: start; } .challenge-track-grid { grid-template-columns: 1fr; } .challenge-track { min-height: 0; } .challenge-track h3 { min-height: 0; } .sponsor-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -1018,6 +1019,11 @@
         <img class="org-avatar" src="assets/Committee/jinhao_zhang.png" alt="Jinhao Zhang" onerror="this.outerHTML='<div class=org-initials>JZ</div>'">
         <h4>Jinhao Zhang</h4>
         <div class="org-aff">Harbin Institute of Technology (Shenzhen), China</div>
+      </div>
+      <div class="org-card">
+        <div class="org-avatar pc-avatar-frame"><img src="assets/Committee/junfan_zhu.jpg" alt="Junfan Zhu" onerror="this.parentElement.outerHTML='<div class=org-initials>JZ</div>'"></div>
+        <h4>Junfan Zhu</h4>
+        <div class="org-aff">Saturday Robotics</div>
       </div>
     </div>
   </div>
