@@ -185,7 +185,8 @@
   tr:last-child td { border-bottom: none; }
   td.time { white-space: nowrap; font-weight: 600; color: var(--ink-2); width: 140px; }
   tr.break-row td { background: #fbf3df; color: var(--muted); font-style: italic; }
-  #program tr.oral-row td.time { vertical-align: top; }
+  #program tr.keynote-row td.time, #program tr.oral-row td.time { vertical-align: top; }
+  #program .keynote-title { display: block; margin-top: 2px; color: var(--muted); font-size: 13px; font-weight: 400; line-height: 1.5; overflow-wrap: break-word; }
   #program .oral-heading { font-weight: 400; color: var(--text); line-height: 1.65; }
   #program .oral-duration { display: inline-block; white-space: nowrap; }
   #program .oral-presenters { display: flex; flex-wrap: wrap; gap: 2px 18px; list-style: none; margin-top: 2px; color: var(--muted); }
@@ -416,7 +417,7 @@
   <table aria-label="Workshop program">
     <tr><th scope="col">Time</th><th scope="col">Session</th></tr>
     <tr><td class="time">13:30 – 13:35</td><td>Opening Remarks — Haibao Yu (CMU, USA)</td></tr>
-    <tr><td class="time">13:35 – 14:00</td><td>Keynote 1 — Jiajun Wu (Stanford University, USA)</td></tr>
+    <tr class="keynote-row"><td class="time">13:35 – 14:00</td><td>Keynote 1 — Jiajun Wu (Stanford University, USA)<span class="keynote-title">Building Visual and Physical Intelligence Through Code</span></td></tr>
     <tr><td class="time">14:00 – 14:25</td><td>Keynote 2 — Rudra P.K. Poudel (Toshiba Europe, UK)</td></tr>
     <tr><td class="time">14:25 – 14:40</td><td>Keynote 3 — Lian Ruan (X Square Robot)</td></tr>
     <tr><td class="time">14:40 – 14:55</td><td>Keynote 4 — Mingle Li (SimpleAI)</td></tr>
